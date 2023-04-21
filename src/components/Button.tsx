@@ -5,9 +5,16 @@ type ButtonProps = {
   className?: string;
   children?: React.ReactNode;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 };
 
-export function Button({ children, onClick, className, type }: ButtonProps) {
+export function Button({
+  children,
+  onClick,
+  className,
+  type,
+  disabled,
+}: ButtonProps) {
   const [growEffect, setGrowEffect] = useState(false);
   return (
     <button
@@ -22,6 +29,7 @@ export function Button({ children, onClick, className, type }: ButtonProps) {
         setGrowEffect(true);
       }}
       onAnimationEnd={() => setGrowEffect(false)}
+      disabled={disabled}
     >
       {children}
     </button>

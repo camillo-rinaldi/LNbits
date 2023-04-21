@@ -1,42 +1,33 @@
-import React, { useState, useEffect } from "react";
-import QRCode from "qrcode";
+import React from "react";
+import { QRCode } from "react-qrcode-logo";
 
 type QRTagProps = {
   value: string;
+  logoImage: string;
 };
 
 export function QRTag(props: QRTagProps) {
-  const [qrCodeDataURL, setQRCodeDataURL] = useState<string>("");
-
-  useEffect(() => {
-    async function generateQRCode() {
-      try {
-        const dataURL = await QRCode.toDataURL(props.value, {
-          errorCorrectionLevel: "L",
-          color: {
-            dark: "#000000",
-            light: "#f77216",
-          },
-          margin: 2,
-        });
-        setQRCodeDataURL(dataURL);
-      } catch (error) {
-        console.error("Failed to generate QR code:", error);
-      }
-    }
-
-    generateQRCode();
-  }, [props.value]);
-
   return (
     <>
-      <div className="flex w-full flex-col items-center justify-center pt-10">
-        {qrCodeDataURL ? (
+      <div className="pt-10">
+        {props.value ? (
           <div className="inline-block border-2 border-orange-500">
-            <img src={qrCodeDataURL} alt={`QR code for ${props.value}`} />
+            <QRCode
+              value={props.value}
+              size={300}
+              style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+              bgColor="#f77216"
+              fgColor="#000f"
+              logoImage={props.logoImage}
+              logoWidth={100}
+              logoHeight={100}
+              qrStyle="dots"
+            />
           </div>
         ) : (
-          <p>Loading QR code...</p>
+          <div className="inline-block flex h-[320px] w-[320px] items-center justify-center border-2 border-dashed border-orange-500 bg-transparent">
+            <p className="text-gray-400">QR code will be generated here</p>
+          </div>
         )}
       </div>
     </>
