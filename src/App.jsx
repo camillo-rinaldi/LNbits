@@ -1,33 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { QRTag } from "./components/QRTag";
 import { Button } from "./components/Button";
+import { ChangeEvent } from "react";
+import { FormEvent } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [inputValue, setInputValue] = useState("");
+  const [qrCodeValue, setQrCodeValue] = useState("");
 
   return (
     <>
-      <div className={"grid space-y-10"}>
+      <div className={"flex grid space-y-10"}>
         <h1 className={"py-10"}>Title</h1>
         <h2 className={""}>This is a secondary title</h2>
         <p>Thank you for donating, this is a paragraph!</p>
-        <QRTag
-          className={""}
-          value={
-            "lnbc10n1pjyrk37pp5fgqj7vct9udfmfxnnu7sd8w3wfd7769hn9phvvnuwkg0ts2uk9esdq0g9kxy7fqw3jhxaqcqzpgxqyz5vqsp5s0d7qyr9mmk22qeevcmpress6pz699frypldsjp5aj7j4f0rvaas9qyyssqfjthn8jae2e45nqp4qaj43p0n0e0myte6d405v50cx80rqhxhevj0cw8cu5rdnknjauvulm7ptj4ey26j5kkw2mrt8kp9wv7ca7jgacqc0yx0g"
-          }
-        />
-        <div>
+        <form className={"flex flex-col items-center"}>
+          <label htmlFor="sats" className="mb-2">
+            Sats
+          </label>
+          <input
+            id="sats"
+            type="text"
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+            }}
+            className="mb-4 block rounded-md border-2 border-gray-300 px-2 py-1"
+          />
           <Button
-            className={"px-[120px] py-[30px] text-3xl"}
-            onClick={() => {}}
+            className={"px-[80px] py-[10px] text-xl"}
+            onClick={(e) => {
+              setQrCodeValue(inputValue.toString());
+            }}
           >
             Tip me up!
           </Button>
-        </div>
+        </form>
+        {qrCodeValue !== "" ? (
+          <QRTag className={""} value={qrCodeValue} />
+        ) : (
+          <div />
+        )}
       </div>
     </>
   );

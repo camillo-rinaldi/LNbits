@@ -4,9 +4,10 @@ type ButtonProps = {
   onClick: () => void;
   className?: string;
   children?: React.ReactNode;
+  type?: "button" | "submit" | "reset";
 };
 
-export function Button({ children, onClick, className }: ButtonProps) {
+export function Button({ children, onClick, className, type }: ButtonProps) {
   const [growEffect, setGrowEffect] = useState(false);
   return (
     <button
@@ -15,6 +16,7 @@ export function Button({ children, onClick, className }: ButtonProps) {
       focus:ring-orange-500 focus:ring-opacity-50 ${
         growEffect && "animate-grow"
       } ${className}`}
+      type={type ?? "button"}
       onClick={() => {
         onClick();
         setGrowEffect(true);
