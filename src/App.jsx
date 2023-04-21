@@ -5,6 +5,7 @@ import { QRTag } from "./components/QRTag";
 import { Button } from "./components/Button";
 import { createInvoice } from "./services/invoice-service.ts";
 import { Spinner } from "./components/Spinner";
+import { PaymentStatus } from "./components/PaymentStatus";
 
 function App() {
   const [inputValue, setInputValue] = useState(0);
@@ -58,6 +59,7 @@ function App() {
                     amount: inputValue,
                   });
                   setQrCodeValue(response["payment_request"]);
+                  setPaymentHash(response["payment_hash"]);
                 } catch (error) {
                   console.error("Error creating invoice:", error);
                 } finally {
@@ -70,10 +72,7 @@ function App() {
           </form>
           <QRTag className={""} value={qrCodeValue} logoImage={viteLogo} />
         </div>
-        {
-          // if payment hash is != "" then every 5 seconds check if the invoice has been paid
-          // if it has been paid then show a success message
-        }
+        <PaymentStatus paymentHash={paymentHash} />
       </div>
     </>
   );
