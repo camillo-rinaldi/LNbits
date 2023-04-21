@@ -1,5 +1,5 @@
 import { useState } from "react";
-import viteLogo from "/vite.svg";
+import btcln from "./assets/btcln.png";
 import "./App.css";
 import { QRTag } from "./components/QRTag";
 import { Button } from "./components/Button";
@@ -70,7 +70,7 @@ function App() {
               {isLoading ? <Spinner /> : "Tip me up!"}
             </Button>
           </form>
-          <QRTag className={""} value={qrCodeValue} logoImage={viteLogo} />
+          <QRTag className={""} value={qrCodeValue} logoImage={btcln} />
         </div>
         <PaymentStatus paymentHash={paymentHash} />
       </div>

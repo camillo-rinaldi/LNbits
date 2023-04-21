@@ -50,7 +50,7 @@ export function PaymentStatus({ paymentHash }: PaymentStatusProps) {
         ) : (
           <div className="flex items-center justify-center">
             <svg
-              className="mr-2 h-8 w-8 animate-spin text-orange-500"
+              className="mr-2 h-8 w-8 animate-spin text-_orange-500"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="none"
@@ -62,7 +62,7 @@ export function PaymentStatus({ paymentHash }: PaymentStatusProps) {
               <circle cx="12" cy="12" r="10" />
               <path d="M12 6v6l4 2" />
             </svg>
-            <h2 className="text-xl font-semibold text-orange-500">
+            <h2 className="text-xl font-semibold text-_orange-500">
               Waiting for Payment
             </h2>
           </div>

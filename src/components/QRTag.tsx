@@ -11,13 +11,13 @@ export function QRTag(props: QRTagProps) {
     <>
       <div className="pt-10">
         {props.value ? (
-          <div className="inline-block border-2 border-orange-500">
+          <div className="inline-block border-2 border-_orange-500">
             <QRCode
               ecLevel={"M"}
               value={props.value}
               size={300}
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-              bgColor="#f77216"
+              bgColor="#f7931a"
               fgColor="#000f"
               logoImage={props.logoImage}
               logoWidth={100}
@@ -29,7 +29,7 @@ export function QRTag(props: QRTagProps) {
             </a>
           </div>
         ) : (
-          <div className="inline-block flex h-[340px] w-[320px] items-center justify-center border-2 border-dashed border-orange-500 bg-transparent">
+          <div className="inline-block flex h-[340px] w-[320px] items-center justify-center border-2 border-dashed border-_orange-500 bg-transparent">
             <p className="text-gray-400">QR code will be generated here</p>
           </div>
         )}
