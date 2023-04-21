@@ -11,6 +11,7 @@ function App() {
   const [memoValue, setMemoValue] = useState("");
   const [qrCodeValue, setQrCodeValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [paymentHash, setPaymentHash] = useState("");
 
   return (
     <>
@@ -28,7 +29,9 @@ function App() {
               type="number"
               value={inputValue}
               onChange={(e) => {
-                setInputValue(Number(e.target.value));
+                if (Number(e.target.value) >= 0) {
+                  setInputValue(Number(e.target.value));
+                }
               }}
               className="mb-4 block rounded-md border-2 border-gray-300 px-2 py-1"
             />
@@ -67,6 +70,10 @@ function App() {
           </form>
           <QRTag className={""} value={qrCodeValue} logoImage={viteLogo} />
         </div>
+        {
+          // if payment hash is != "" then every 5 seconds check if the invoice has been paid
+          // if it has been paid then show a success message
+        }
       </div>
     </>
   );

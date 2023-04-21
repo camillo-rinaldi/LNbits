@@ -19,14 +19,18 @@ export function Button({
   return (
     <button
       className={`rounded bg-orange-500 px-4 py-2 font-bold 
-      text-white hover:bg-orange-600 focus:outline-none focus:ring-2 
+      text-white ${
+        disabled ? "cursor-not-allowed opacity-50" : "hover:bg-orange-600"
+      } focus:outline-none focus:ring-2 
       focus:ring-orange-500 focus:ring-opacity-50 ${
         growEffect && "animate-grow"
       } ${className}`}
       type={type ?? "button"}
       onClick={() => {
-        onClick();
-        setGrowEffect(true);
+        if (!disabled) {
+          onClick();
+          setGrowEffect(true);
+        }
       }}
       onAnimationEnd={() => setGrowEffect(false)}
       disabled={disabled}
