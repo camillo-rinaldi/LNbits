@@ -17,9 +17,21 @@ function App() {
   return (
     <>
       <div className={"flex grid space-y-10"}>
-        <h1 className={"py-10"}>Title</h1>
-        <h2 className={""}>This is a secondary title</h2>
-        <p>Thank you for donating, this is a paragraph!</p>
+        <h1 className={"pt-10 text-4xl font-bold"}>
+          Welcome to my Donation Page!
+        </h1>
+        <h2 className={"text-2xl font-semibold"}>
+          Support my projects and initiatives
+        </h2>
+        <p className={"text-lg text-gray-300"}>
+          I'm working on some amazing projects and ideas, powered by
+          microtransactions. Your support will help me create more exciting
+          content and applications.
+        </p>
+        <p className={"text-lg text-gray-300"}>
+          If you like what I'm doing, please consider sending a few sats as a
+          tip. Every little bit helps!
+        </p>
         <div className={"flex flex-row justify-center space-x-24"}>
           <form className={"mt-4 flex flex-col items-center"}>
             <label htmlFor="sats" className="mb-2">
@@ -37,11 +49,12 @@ function App() {
               className="mb-4 block rounded-md border-2 border-gray-300 px-2 py-1"
             />
             <label htmlFor="memo" className="mb-2">
-              Memo
+              Message
             </label>
             <textarea
               id="memo"
               rows={3}
+              maxLength={100}
               value={memoValue}
               onChange={(e) => {
                 setMemoValue(e.target.value);
