@@ -12,8 +12,13 @@ export function FileUpload({ onFileUpload }: FileUploadProps) {
     if (fileList && fileList.length > 0) {
       const file = fileList[0];
       if (file.type === "application/pdf") {
-        setFile(file);
-        onFileUpload(file);
+        if (file.size <= 3 * 1024 * 1024) {
+          setFile(file);
+          onFileUpload(file);
+        } else {
+          alert("Please upload a PDF file smaller than 3 MB.");
+          e.target.value = "";
+        }
       } else {
         alert("Please upload a PDF file.");
         e.target.value = "";

@@ -10,7 +10,6 @@ import { FileUpload } from "./components/FileUpload";
 import { processPDF } from "./services/pdf-converter-service";
 
 function App() {
-  const [inputValue, setInputValue] = useState(10);
   const [qrCodeValue, setQrCodeValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [paymentHash, setPaymentHash] = useState("");
@@ -22,7 +21,6 @@ function App() {
   };
 
   const handlePaymentSuccess = async () => {
-    console.log(uploadedFile);
     if (uploadedFile) {
       const uploadFileName = `${uploadedFile.name.replace(
         ".pdf",
@@ -62,21 +60,15 @@ function App() {
             <QRTag value={qrCodeValue} logoImage={btcln} />
             <div className={"flex flex-col items-center"}>
               <FileUpload onFileUpload={handleFileUpload} />
-              <input
-                type="hidden"
-                value={inputValue}
-                readOnly
-                className="hidden"
-              />
               <Button
                 className={"mt-10 px-20 py-4 text-xl"}
-                disabled={isLoading || inputValue <= 0 || !uploadedFile}
+                disabled={isLoading || !uploadedFile}
                 onClick={async () => {
                   setIsLoading(true);
                   try {
                     const response = await createInvoice({
                       memo: "PDF conversion",
-                      amount: inputValue,
+                      amount: 1,
                     });
                     setQrCodeValue(response["payment_request"]);
                     setPaymentHash(response["payment_hash"]);
@@ -87,10 +79,7 @@ function App() {
                   }
                 }}
               >
-                {isLoading ? <Spinner /> : "Pay 10 sats"}
-              </Button>
-              <Button className={"mt-10"} onClick={handlePaymentSuccess}>
-                Skip payment
+                {isLoading ? <Spinner /> : "Pay 1 sats"}
               </Button>
             </div>
           </div>
