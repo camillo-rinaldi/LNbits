@@ -16,7 +16,7 @@ export const createInvoice = async ({ amount, memo }: Invoice) => {
 
     return response.data;
   } catch (error) {
-    console.error("Error creating invoice:", error.response);
+    console.error("Error creating invoice:", error);
     return null;
   }
 };
@@ -27,7 +27,7 @@ export const getInvoice = async (paymentHash: string) => {
 
     return response.data;
   } catch (error) {
-    console.error("Error getting invoice:", error.response);
+    console.error("Error getting invoice:", error);
     return null;
   }
 };

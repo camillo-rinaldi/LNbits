@@ -3,9 +3,10 @@ import { getInvoice } from "../services/invoice-service";
 
 type PaymentStatusProps = {
   paymentHash: string;
+  onSuccess: () => void;
 };
 
-export function PaymentStatus({ paymentHash }: PaymentStatusProps) {
+export function PaymentStatus({ paymentHash, onSuccess }: PaymentStatusProps) {
   const [paid, setPaid] = useState(false);
 
   useEffect(() => {
@@ -15,6 +16,7 @@ export function PaymentStatus({ paymentHash }: PaymentStatusProps) {
         getInvoice(paymentHash).then((invoice) => {
           if (invoice.paid) {
             setPaid(true);
+            onSuccess();
             clearInterval(timer);
           }
         });
