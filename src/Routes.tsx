@@ -15,6 +15,7 @@ export default function AppRoutes() {
         <Route path="/LNbits" element={<Home />} />
         <Route path="/LNbits/terms-of-use" element={<TermsOfUse />} />
       </Routes>
+      <RedirectHandler />
     </Router>
   );
 }
