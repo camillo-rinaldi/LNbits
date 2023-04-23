@@ -55,29 +55,31 @@ export function Home() {
 
   return (
     <>
-      <div className={"flex grid space-y-10"}>
-        <h1 className={"pt-10 text-4xl font-bold"}>
-          Welcome to my PDF to CSV Converter Page!
-        </h1>
-        <h2 className={"text-2xl font-semibold"}>
-          Convert your PDF files for just {price} sats
-        </h2>
-        <p className={"text-lg text-gray-300"}>
-          I'm providing a PDF conversion to CSV service, powered by
-          microtransactions. Your support will help me create more exciting
-          content and applications. This application is aimed to convert PDFs
-          with tables like bank statements to CSV files.
-        </p>
-        <p className={"text-lg text-gray-300"}>
-          By using this service, you agree to the{" "}
-          {
-            <a href="/LNbits/terms-of-use" target="_blank">
-              Terms of use
-            </a>
-          }
-        </p>
-        <div className={"flex flex-col justify-center space-x-24"}>
-          <div className={"flex flex-row items-center justify-around"}>
+      <div className="flex flex-col space-y-10 md:grid md:space-x-24">
+        <div className="space-y-10 md:flex md:flex-col">
+          <h1 className="pt-10 text-4xl font-bold">
+            Welcome to my PDF to CSV Converter Page!
+          </h1>
+          <h2 className="text-2xl font-semibold">
+            Convert your PDF files for just {price} sats
+          </h2>
+          <p className="text-lg text-gray-300">
+            I'm providing a PDF conversion to CSV service, powered by
+            microtransactions. Your support will help me create more exciting
+            content and applications. This application is aimed to convert PDFs
+            with tables like bank statements to CSV files.
+          </p>
+          <p className="text-lg text-gray-300">
+            By using this service, you agree to the{" "}
+            {
+              <a href="/LNbits/terms-of-use" target="_blank">
+                Terms of use
+              </a>
+            }
+          </p>
+        </div>
+        <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center justify-around space-y-10 md:flex-row md:space-x-24 md:space-y-0">
             <QRTag
               value={qrCodeValue}
               logoImage={btcln}
@@ -85,10 +87,10 @@ export function Home() {
                 isPaid ? <QRPlaceHolderSuccess /> : <QRPlaceHolder />
               }
             />
-            <div className={"flex flex-col items-center"}>
+            <div className="flex flex-col items-center">
               <FileUpload onFileUpload={handleFileUpload} />
               <Button
-                className={"mt-10 px-20 py-4 text-xl"}
+                className="mt-10 px-20 py-4 text-xl"
                 disabled={isLoading || !uploadedFile}
                 onClick={async () => {
                   setIsLoading(true);
