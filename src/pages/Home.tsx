@@ -49,6 +49,7 @@ export function Home() {
         ""
       )}-${Date.now().toString(10)}.pdf`;
       try {
+        setQrCodeValue("");
         setIsConverting(true);
         const responseBlob = await processPDF(uploadFileName, uploadedFile);
         const downloadUrl = URL.createObjectURL(responseBlob);
@@ -73,6 +74,7 @@ export function Home() {
     setQrCodeValue("");
     setPaymentHash("");
     setUploadedFile(null);
+    setIsConverting(false);
     setIsPaid(true);
   };
 
