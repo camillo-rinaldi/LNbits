@@ -9,7 +9,6 @@ export const processPDF = async (
 ): Promise<Blob> => {
   try {
     const base64pdf = await readFileAsDataURL(pdf);
-    console.log(base64pdf);
     const response = await axios.post(
       `${endpoint}/${fileName}`,
       {
