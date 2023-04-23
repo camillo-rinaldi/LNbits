@@ -9,6 +9,7 @@ import { FileUpload } from "../components/FileUpload";
 import { processPDF } from "../services/pdf-converter-service";
 import { QRPlaceHolder } from "../components/QRPlaceHolder";
 import { QRPlaceHolderSuccess } from "../components/QRPlaceHolderSuccess";
+import { Link } from "react-router-dom";
 
 export function Home() {
   const [qrCodeValue, setQrCodeValue] = useState("");
@@ -72,9 +73,9 @@ export function Home() {
           <p className="text-lg text-gray-300">
             By using this service, you agree to the{" "}
             {
-              <a href="/LNbits/terms-of-use" target="_blank">
+              <Link to="/LNbits/terms-of-use" target="_blank">
                 Terms of use
-              </a>
+              </Link>
             }
           </p>
         </div>
