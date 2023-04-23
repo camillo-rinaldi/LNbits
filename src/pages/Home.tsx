@@ -19,6 +19,9 @@ export function Home() {
   // prettier-ignore
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isPaid, setIsPaid] = useState(false);
+  const [downloadLink, setDownloadLink] = useState<HTMLAnchorElement | null>(
+    null
+  );
 
   const price = 1;
 
@@ -61,6 +64,7 @@ export function Home() {
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
+        setDownloadLink(downloadLink);
         afterPaymentSuccess();
       } catch (error) {
         // show error message and refund
@@ -135,6 +139,16 @@ export function Home() {
                   `Pay ${price} ${price === 1 ? "sat" : "sats"}`
                 )}
               </Button>
+              {downloadLink && (
+                <a href={downloadLink.href} download={downloadLink.download}>
+                  <Button
+                    className="mt-10 px-20 py-4 text-xl"
+                    onClick={() => {}}
+                  >
+                    Download!
+                  </Button>
+                </a>
+              )}
             </div>
           </div>
         </div>
