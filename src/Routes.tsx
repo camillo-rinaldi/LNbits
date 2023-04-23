@@ -12,8 +12,8 @@ export default function AppRoutes() {
   return (
     <Router>
       <Routes>
-        <Route path="/LNBits" element={<Home />} />
-        <Route path="/LNBits/terms-of-use" element={<TermsOfUse />} />
+        <Route path="/LNbits" element={<Home />} />
+        <Route path="/LNbits/terms-of-use" element={<TermsOfUse />} />
       </Routes>
       <RedirectHandler />
     </Router>
