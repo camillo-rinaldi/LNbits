@@ -62,7 +62,8 @@ export function Home() {
             Welcome to my PDF to CSV Converter Page!
           </h1>
           <h2 className="text-2xl font-semibold">
-            Convert your PDF files for just {price} sats
+            Convert your PDF files for just {price}{" "}
+            {price === 1 ? "sat" : "sats"}
           </h2>
           <p className="text-lg text-gray-300">
             I'm providing a PDF conversion to CSV service, powered by
