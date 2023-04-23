@@ -13,7 +13,8 @@ import { Link } from "react-router-dom";
 
 export function Home() {
   const [qrCodeValue, setQrCodeValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingInvoice, setLoadingInvoice] = useState(false);
+  const [isConverting, setIsConverting] = useState(false);
   const [paymentHash, setPaymentHash] = useState("");
   // prettier-ignore
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
@@ -25,6 +26,22 @@ export function Home() {
     setUploadedFile(file);
   };
 
+  const createInvoiceAndGenerateQRCode = async () => {
+    setLoadingInvoice(true);
+    try {
+      const response = await createInvoice({
+        memo: "PDF conversion",
+        amount: price,
+      });
+      setQrCodeValue(response["payment_request"]);
+      setPaymentHash(response["payment_hash"]);
+    } catch (error) {
+      console.error("Error creating invoice:", error);
+    } finally {
+      setLoadingInvoice(false);
+    }
+  };
+
   const handlePaymentSuccess = async () => {
     if (uploadedFile) {
       const uploadFileName = `${uploadedFile.name.replace(
@@ -32,17 +49,22 @@ export function Home() {
         ""
       )}-${Date.now().toString(10)}.pdf`;
       try {
+        setIsConverting(true);
         const responseBlob = await processPDF(uploadFileName, uploadedFile);
         const downloadUrl = URL.createObjectURL(responseBlob);
         const downloadLink = document.createElement("a");
         downloadLink.href = downloadUrl;
-        downloadLink.download = uploadedFile.name.replace(".pdf", ".csv");
+        downloadLink.download = uploadedFile.name
+          .toLowerCase()
+          .replace(".pdf", ".csv");
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
         afterPaymentSuccess();
       } catch (error) {
         // show error message and refund
+      } finally {
+        setIsConverting(false);
       }
     }
   };
@@ -86,31 +108,26 @@ export function Home() {
               value={qrCodeValue}
               logoImage={btcln}
               placeHolder={
-                isPaid ? <QRPlaceHolderSuccess /> : <QRPlaceHolder />
+                isPaid ? (
+                  <QRPlaceHolderSuccess />
+                ) : isConverting ? (
+                  <div className={"flex flex-col items-center"}>
+                    <Spinner className={"h-12 w-12"} />
+                    <p className={"pt-4 text-gray-400"}>Converting PDF...</p>
+                  </div>
+                ) : (
+                  <QRPlaceHolder />
+                )
               }
             />
             <div className="flex flex-col items-center">
               <FileUpload onFileUpload={handleFileUpload} />
               <Button
                 className="mt-10 px-20 py-4 text-xl"
-                disabled={isLoading || !uploadedFile}
-                onClick={async () => {
-                  setIsLoading(true);
-                  try {
-                    const response = await createInvoice({
-                      memo: "PDF conversion",
-                      amount: price,
-                    });
-                    setQrCodeValue(response["payment_request"]);
-                    setPaymentHash(response["payment_hash"]);
-                  } catch (error) {
-                    console.error("Error creating invoice:", error);
-                  } finally {
-                    setIsLoading(false);
-                  }
-                }}
+                disabled={isLoadingInvoice || !uploadedFile}
+                onClick={createInvoiceAndGenerateQRCode}
               >
-                {isLoading ? (
+                {isLoadingInvoice ? (
                   <Spinner />
                 ) : (
                   `Pay ${price} ${price === 1 ? "sat" : "sats"}`
