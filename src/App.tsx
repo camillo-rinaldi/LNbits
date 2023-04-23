@@ -8,6 +8,8 @@ import { Spinner } from "./components/Spinner";
 import { PaymentStatus } from "./components/PaymentStatus";
 import { FileUpload } from "./components/FileUpload";
 import { processPDF } from "./services/pdf-converter-service";
+import { QRPlaceHolder } from "./components/QRPlaceHolder";
+import { QRPlaceHolderSuccess } from "./components/QRPlaceHolderSuccess";
 
 function App() {
   const [qrCodeValue, setQrCodeValue] = useState("");
@@ -15,6 +17,7 @@ function App() {
   const [paymentHash, setPaymentHash] = useState("");
   // prettier-ignore
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [isPaid, setIsPaid] = useState(false);
 
   const handleFileUpload = (file: File) => {
     setUploadedFile(file);
@@ -35,10 +38,18 @@ function App() {
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
+        afterPaymentSuccess();
       } catch (error) {
         // show error message and refund
       }
     }
+  };
+
+  const afterPaymentSuccess = () => {
+    setQrCodeValue("");
+    setPaymentHash("");
+    setUploadedFile(null);
+    setIsPaid(true);
   };
 
   return (
@@ -57,7 +68,13 @@ function App() {
         </p>
         <div className={"flex flex-col justify-center space-x-24"}>
           <div className={"flex flex-row items-center justify-around"}>
-            <QRTag value={qrCodeValue} logoImage={btcln} />
+            <QRTag
+              value={qrCodeValue}
+              logoImage={btcln}
+              placeHolder={
+                isPaid ? <QRPlaceHolderSuccess /> : <QRPlaceHolder />
+              }
+            />
             <div className={"flex flex-col items-center"}>
               <FileUpload onFileUpload={handleFileUpload} />
               <Button

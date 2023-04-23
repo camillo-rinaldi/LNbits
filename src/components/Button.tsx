@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState, ReactNode } from "react";
 
 type ButtonProps = {
   onClick: () => void;
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
 };
