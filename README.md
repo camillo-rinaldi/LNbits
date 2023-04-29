@@ -40,11 +40,9 @@ npm install
 
 4. Set up your Node.js server in the cloud (e.g., AWS, GCP, Heroku) to handle LNbits API requests securely.
 
-5. Rename .env.example to .env and configure your environment variable to match your Node.js server and provided service url.
+5. Change the urls on services files to match your Node.js server and provided service url.
 
-6. Configure your environment variables to match your Node.js server settings and LNbits credentials.
-
-7. Start the React development server:
+6. Start the React development server:
 
 ```
 npm start
