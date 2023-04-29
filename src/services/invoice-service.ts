@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// @ts-ignore
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const baseUrl = "https://8jlty1ba6f.execute-api.sa-east-1.amazonaws.com/prod";
 
 type Invoice = {
   amount: number;

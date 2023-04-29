@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// @ts-ignore
-const endpoint = import.meta.env.VITE_CONVERTER_URL;
+const endpoint =
+  "https://5jhq2lwis0.execute-api.sa-east-1.amazonaws.com/prod/process-pdf";
 
 export const processPDF = async (
   fileName: string,
